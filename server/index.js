@@ -18,8 +18,11 @@ app.get('/:id', (req, res) => {
 })
 
 app.get('/reviews/:id', (req, res) => {
-    Reviews.find({itemId: req.params.id}).sort({date: -1}).exec((err, item) => {
-        if (err) return res.status(500).send(err)
+    Reviews.find({ itemId: req.params.id }).exec((err, item) => {
+        console.log(err)
+        if (err) return res.status(500).send()
+        item = item[0]
+        item.reviews = item.reviews.reverse()
         res.status(200).send(item)
     })
 })

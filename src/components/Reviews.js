@@ -5,32 +5,32 @@ import Reviews_List from './Reviews_List/Reviews_List';
 import { fetch } from 'whatwg-fetch'
 import styles from '../styles.css'
 
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { setItem } from '../actions'
+
+const url = `/reviews${window.location.pathname}`
+
 class Reviews extends Component {
   constructor(props) {
     super(props) 
-    this.state = {
-      itemName: '',
-      itemId: '',
-      reviews: []
-    }
     this.getReviews = this.getReviews.bind(this)
+    this.handleSubmitReview = this.handleSubmitReview.bind(this)
   }
+
   componentDidMount() {
     this.getReviews()
   }
+  
   getReviews() {
-    console.log('fetching reviews')
-    fetch(`http://ec2-34-210-165-224.us-west-2.compute.amazonaws.com:3001/reviews${window.location.pathname}`)
-    .then((item) => item.json())
-    .then((item) => this.setState({
-      reviews: item[0].reviews.reverse(), 
-      itemId: item[0].itemId,
-      itemName: item[0].itemName,
-    }))
+    fetch(url)
+    .then(item => item.json())
+    .then(item => this.props.setItem(item))
   }
-  handleSubmitReview(newReview) {
 
-    fetch(`http://ec2-34-210-165-224.us-west-2.compute.amazonaws.com:3001/reviews${window.location.pathname}`, {
+  handleSubmitReview(newReview) {
+    fetch(url, {
       method: 'PATCH',
       mode: 'cors',
       headers: {
@@ -39,23 +39,29 @@ class Reviews extends Component {
       body: JSON.stringify(newReview)
     }).then(() => this.getReviews())
   }
+
   render() {
+    const { reviews, itemId, itemName } = this.props.item
     return (
       <div className={styles["reviews-body"]}>
-            <div>
-              <br></br>
-              <h5>Reviews</h5>
-              <Info_Bar reviews={this.state.reviews} />
-              <Reviews_List reviews={this.state.reviews}/>
-              <Write_Review 
-                itemId={this.state.itemId}
-                itemName={this.state.itemName} 
-                handleSubmitReview={this.handleSubmitReview.bind(this)}
-              />
-            </div>
+        <div>
+          <br></br>
+          <h5>Reviews</h5>
+          <Info_Bar reviews={reviews} />
+          <Reviews_List reviews={reviews}/>
+          <Write_Review 
+            itemId={itemId}
+            itemName={itemName} 
+            handleSubmitReview={this.handleSubmitReview}
+          />
+        </div>
       </div>
     )
   }
 }
+const mapStateToProps = state => state
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setItem
+}, dispatch)
 
-export default Reviews
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews)

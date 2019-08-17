@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://mongo:27017/reviews', {useMongoClient: true})
+mongoose.connect('mongodb://localhost/reviews', {useMongoClient: true})
 
 const reviewSchema = new mongoose.Schema({
     itemId: Number,
@@ -10,7 +10,7 @@ const reviewSchema = new mongoose.Schema({
 exports.Reviews = mongoose.model('Reviews', reviewSchema)
 
 /*
-**** DATA IN REVIEWS ****
+**** DATA IN Reviews.reviews ****
 
     reviewId: Number,
     username: String,
