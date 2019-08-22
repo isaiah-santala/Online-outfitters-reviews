@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start": "nodemon ./server/index.js",
     "build": "webpack --watch",
     "test": "jest",
-    "server": "nodemon ./server/index.js",
     "seed": "node ./db/seed/SeedDB.js"
   },
   "repository": {

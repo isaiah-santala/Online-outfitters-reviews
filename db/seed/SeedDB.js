@@ -2,7 +2,7 @@ const { Reviews } = require('../index')
 const { GenerateJSON } = require('./GenerateJSON')
 
 exports.SeedDB = () => {
-    Reviews.create(GenerateJSON(100, 3), (err, data) => {
+    Reviews.create(GenerateJSON(100, 6), (err, data) => {
         if (err) return console.log(err)
         console.log(data)
     })
