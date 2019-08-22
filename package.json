@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "build": "webpack",
+    "start": "nodemon ./server/index.js",
+    "build": "webpack --watch",
     "test": "jest",
-    "server": "nodemon ./server/index.js",
     "seed": "node ./db/seed/SeedDB.js"
   },
   "repository": {
@@ -52,7 +51,10 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-ionicons": "^3.0.1",
+    "react-redux": "^7.1.0",
     "react-star-ratings": "^2.3.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "request": "^2.81.0",
     "to-string-loader": "^1.1.5",
     "whatwg-fetch": "^3.0.0"

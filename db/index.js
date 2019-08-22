@@ -10,7 +10,7 @@ const reviewSchema = new mongoose.Schema({
 exports.Reviews = mongoose.model('Reviews', reviewSchema)
 
 /*
-**** DATA IN REVIEWS ****
+**** DATA IN Reviews.reviews ****
 
     reviewId: Number,
     username: String,

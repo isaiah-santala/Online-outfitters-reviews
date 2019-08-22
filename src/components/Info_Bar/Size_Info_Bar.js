@@ -21,13 +21,6 @@ class Size_Info_Bar extends Component {
         }
         return false
     }
-    generateScale(percentage) {
-        if (percentage >= 90) return '|-|-|-|-•'
-        if (percentage >= 55) return '|-|-|-•-|'
-        if (percentage >= 45) return '|-|-•-|-|'
-        if (percentage <= 10) return '•-|-|-|-|'
-        return '|-•-|-|-|'
-    }
     render() {
         const avgFit = this.getAvgFit()
         return (
